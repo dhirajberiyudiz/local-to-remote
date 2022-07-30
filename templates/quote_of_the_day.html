@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+  <!-- Icon - IconMonster -->
+  <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" />
+  <!-- Mumble UI -->
+  <link rel="stylesheet" href="{% static 'uikit/styles/uikit.css' %}" />
+  <!-- Dev Search UI -->
+  <link rel="stylesheet" href="{% static 'styles/app.css' %}" />
+
+  <title>TopQuotes - All famous quotes at one place!</title>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="container container--narrow">
+      <a href="/" class="header__logo">
+        <img src="{% static 'images/logo.svg' %}" alt="DevSearch Logo" />
+      </a>
+      <nav class="header__nav">
+        <input type="checkbox" id="responsive-menu" />
+        <label for="responsive-menu" class="toggle-menu">
+          <span>Menu</span>
+          <div class="toggle-menu__lines"></div>
+        </label>
+        <ul class="header__menu">
+          <li class="header__menuItem"><a href="/">Home</a></li>
+          <li class="header__menuItem"><a href="{%url 'authors'%}">Authors</a></li>
+          <li class="header__menuItem"><a href="{%url 'categories'%}">Topics</a></li>
+          <li class="header__menuItem"><a href="{%url 'quote_of_the_day' %}">Quote Of The Day</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main class="home">
+    <section class="hero-section text-center" style="height: 100%;">
+      <div class="container container--narrow">
+        <div class="hero-section__box">
+          <h2>TOPQUOTE OF THE <span>DAY</span></h2>
+          <h2>{{quote}}</h2>
+          <h2>~{{author}}</h2>
+          <!-- <h3>{{tag}}</h3> -->
+        </div>
+      </div>
+    </section>
+
+    <section class="devlist">
+        <div class="container">
+          <div class="grid grid--three">
+            {% for quote in quotes %}
+            <div class="column card">
+              <div class="dev">
+                <a href="#" class="card__body">
+                  <div class="dev__profile">
+                    <div class="dev__meta">
+                      <h3>{{quote.body}}</h3>
+                      {%if quote.author%}
+                      <h5>~ {{quote.author}}</h5>
+                      {%endif%}
+                    </div>
+                  </div>
+                  
+                  <div class="dev__skills">
+                    {%if quote.category%}
+                    <span class="tag tag--pill tag--main">
+                      <small>{{quote.category}}</small>
+                    </span>
+                    {%endif%}
+                  </div>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </section>
+  </main>
+</body>
+
+</html>
